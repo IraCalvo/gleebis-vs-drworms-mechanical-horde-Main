@@ -24,7 +24,9 @@
         "radio-broadcast": "*",
         "arcade-sprite-util": "github:jwunderl/arcade-sprite-util#v0.4.1",
         "pxt-zoom": "github:kiwiphoenix364/pxt-zoom#v2.0.1",
-        "tilemaps": "github:microsoft/pxt-tilemaps#v1.12.0"
+        "tilemaps": "github:microsoft/pxt-tilemaps#v1.12.0",
+        "arcade-sprite-events": "github:riknoll/arcade-sprite-events#dc93eec8412053ebbd2b8f01cf5b6ae285d28900",
+        "arcade-state-transitions": "github:riknoll/arcade-state-transitions#v0.0.3"
     },
     "files": [
         "main.blocks",
@@ -40,7 +42,7 @@
         "test.ts"
     ],
     "targetVersions": {
-        "target": "1.12.55",
+        "target": "1.12.56",
         "targetId": "arcade"
     },
     "supportedTargets": [
