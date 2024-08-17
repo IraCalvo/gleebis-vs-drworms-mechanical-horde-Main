@@ -4292,6 +4292,7 @@ sprites.onCreated(SpriteKind.Player, function (sprite) {
     sprite.z = 5
 })
 function SpawnWaveRewards () {
+    wavePoints = 0
     waveRewardArray = []
     for (let value of rewardLocation) {
         randomWave = waveRewardBucket._pickRandom()
@@ -7435,6 +7436,7 @@ function CreateVariables () {
     buffPlayerSpeed = 1
     buffPlayerTNTKill = 0
     buffPlayerDiscount = 0
+    buffInfiniteAmmo = 0
     buffPlayerAmmoDrop = 0
     debuffEnemyHP = 0
     debuffEnemySpeed = 1
@@ -9631,7 +9633,6 @@ function MechWormCAI () {
     for (let value of sprites.allOfKind(SpriteKind.Enemy)) {
         if (sprites.readDataString(value, "enemyKind") == "mechWormC") {
             if (spriteutils.distanceBetween(Gleebis, value) <= Math.abs(65)) {
-                value.follow(null)
                 if (sprites.readDataNumber(value, "enemyAttackCD") <= 0) {
                     mechDrainCatcherProj = sprites.create(img`
                         . . . 2 2 2 2 2 2 2 2 . . . 
@@ -9658,8 +9659,6 @@ function MechWormCAI () {
                     spriteutils.setVelocityAtAngle(mechDrainCatcherProj, spriteutils.angleFrom(value, Gleebis), 120)
                     sprites.setDataNumber(value, "enemyAttackCD", 150)
                 }
-            } else {
-                value.follow(Gleebis, sprites.readDataNumber(value, "enemyBaseSpeed") * (debuffEnemySpeed * buffEnemySpeed))
             }
             sprites.setDataNumber(value, "enemyAttackCD", sprites.readDataNumber(value, "enemyAttackCD") - 1)
         }
@@ -10041,7 +10040,7 @@ function ShootDTProj (count: number) {
 function SubtractAmmo () {
     if (sprites.readDataString(Gleebis, "currentWeapon") != "Legendary Alien Sword") {
         if (sprites.readDataString(Gleebis, "currentWeapon") != "sword") {
-            if (buffInfiniteAmmo > 0) {
+            if (buffInfiniteAmmo < 0) {
                 info.player1.setScore(info.player1.score() - 1)
                 if (inSpaceShip && info.player1.score() == 0) {
                     Gleebis.sayText("My ship is out of gas :(", 3000, false)
